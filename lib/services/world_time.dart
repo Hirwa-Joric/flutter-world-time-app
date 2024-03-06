@@ -4,16 +4,16 @@ import 'package:intl/intl.dart';
 
 class WorldTime {
   String location;
-  String time ="";
+  String time = "";
   String flag;
   String url;
-  bool isDaytime;
+  bool isDaytime = false; // Initialize with a default value
 
   // Corrected constructor with required parameters and field initialization
   WorldTime({required this.location, required this.flag, required this.url});
 
   Future<void> getTime() async {
-    try{
+    try {
       Response response = await get(Uri.parse("http://worldtimeapi.org/api/timezone/$url"));
       Map data = jsonDecode(response.body);
 
@@ -23,11 +23,12 @@ class WorldTime {
       DateTime now = DateTime.parse(dateTime);
       now = now.add(Duration(hours: int.parse(offset)));
 
-      isDaytime = now.hour > 6 && now.hour < 18 ? true : false;
+      isDaytime = now.hour > 6 && now.hour < 18;
       time = DateFormat.jm().format(now);
-    }catch(e){
-      print("caught error : $e");
+    } catch (e) {
+      print("caught error: $e");
       time = "could not get time data";
     }
   }
 }
+
