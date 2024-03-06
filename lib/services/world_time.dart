@@ -7,6 +7,7 @@ class WorldTime {
   String time ="";
   String flag;
   String url;
+  bool isDaytime;
 
   // Corrected constructor with required parameters and field initialization
   WorldTime({required this.location, required this.flag, required this.url});
@@ -22,6 +23,7 @@ class WorldTime {
       DateTime now = DateTime.parse(dateTime);
       now = now.add(Duration(hours: int.parse(offset)));
 
+      isDaytime = now.hour > 6 && now.hour < 18 ? true : false;
       time = DateFormat.jm().format(now);
     }catch(e){
       print("caught error : $e");
