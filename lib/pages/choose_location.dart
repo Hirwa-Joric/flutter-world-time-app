@@ -1,25 +1,56 @@
 import 'package:flutter/material.dart';
+import 'package:world_time/services/world_time.dart';
 
 class ChooseLocation extends StatefulWidget {
-  const ChooseLocation({super.key});
-
   @override
-  State<ChooseLocation> createState() => _ChooseLocationState();
+  _ChooseLocationState createState() => _ChooseLocationState();
 }
 
 class _ChooseLocationState extends State<ChooseLocation> {
+
+  List<WorldTime> locations = [
+    WorldTime(url: 'Europe/London', location: 'London', flag: 'uk (1).png'),
+    WorldTime(url: 'Europe/Berlin', location: 'Athens', flag: 'greece (1).png'),
+    WorldTime(url: 'Africa/Cairo', location: 'Cairo', flag: 'egypt (1).png'),
+    WorldTime(url: 'Africa/Nairobi', location: 'Nairobi', flag: 'kenya (1).png'),
+    WorldTime(url: 'America/Chicago', location: 'Chicago', flag: 'usa (1).png'),
+    WorldTime(url: 'America/New_York', location: 'New York', flag: 'usa (1).png'),
+    WorldTime(url: 'Asia/Seoul', location: 'Seoul', flag: 'south_korea (1).png'),
+    WorldTime(url: 'Asia/Jakarta', location: 'Jakarta', flag: 'indonesia (1).png'),
+  ];
+
+  @override
+  void initState() {
+    super.initState();
+  }
+
   @override
   Widget build(BuildContext context) {
-    return  Scaffold(
+    return Scaffold(
       backgroundColor: Colors.grey[200],
       appBar: AppBar(
         backgroundColor: Colors.blue[900],
-        title: Text("choose Location"),
+        title: Text('Choose a Location'),
         centerTitle: true,
         elevation: 0,
       ),
-      body: Text("choose location page"),
+      body: ListView.builder(
+          itemCount: locations.length,
+          itemBuilder: (context, index) {
+            return Padding(
+              padding: const EdgeInsets.symmetric(vertical: 1.0, horizontal: 4.0),
+              child: Card(
+                child: ListTile(
+                  onTap: () {},
+                  title: Text(locations[index].location),
+                  leading: CircleAvatar(
+                    backgroundImage: AssetImage('assets/${locations[index].flag}'),
+                  ),
+                ),
+              ),
+            );
+          }
+      ),
     );
   }
 }
-
